@@ -9,6 +9,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include app/src/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/subdir.mk
@@ -38,34 +39,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := F446RE_RTOS
+BUILD_ARTIFACT_NAME := freertos_app_example_1_6
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-F446RE_RTOS.elf \
+freertos_app_example_1_6.elf \
 
 MAP_FILES += \
-F446RE_RTOS.map \
+freertos_app_example_1_6.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-F446RE_RTOS.list \
+freertos_app_example_1_6.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: F446RE_RTOS.elf secondary-outputs
+main-build: freertos_app_example_1_6.elf secondary-outputs
 
 # Tool invocations
-F446RE_RTOS.elf F446RE_RTOS.map: $(OBJS) $(USER_OBJS) C:\Users\Matias\ D\Documents\RTOS\F446RE_RTOS\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "F446RE_RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Matias D\Documents\RTOS\F446RE_RTOS\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F446RE_RTOS.map" -Wl,--gc-sections -static -specs=rdimon.specs --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+freertos_app_example_1_6.elf freertos_app_example_1_6.map: $(OBJS) $(USER_OBJS) C:\Users\54295\Documents\mdurante\RTOS_I\Practica1\Practica_A.3\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "freertos_app_example_1_6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\54295\Documents\mdurante\RTOS_I\Practica1\Practica_A.3\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="freertos_app_example_1_6.map" -Wl,--gc-sections -static -specs=rdimon.specs --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -74,14 +75,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-F446RE_RTOS.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "F446RE_RTOS.list"
+freertos_app_example_1_6.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "freertos_app_example_1_6.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) F446RE_RTOS.elf F446RE_RTOS.list F446RE_RTOS.map default.size.stdout
+	-$(RM) default.size.stdout freertos_app_example_1_6.elf freertos_app_example_1_6.list freertos_app_example_1_6.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

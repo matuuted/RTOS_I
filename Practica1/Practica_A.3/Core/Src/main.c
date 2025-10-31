@@ -22,6 +22,12 @@
 #include <stdio.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+/* Demo includes. */
+#include "logger.h"
+#include "dwt.h"
+
+/* Application includes. */
+#include "app.h"
 
 /* USER CODE END Includes */
 
@@ -62,6 +68,7 @@ void Task2_App(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+extern void initialise_monitor_handles(void);
 /* USER CODE END 0 */
 
 /**
@@ -72,7 +79,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  initialise_monitor_handles();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -95,6 +102,19 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+
+/* A.2 Siguiendo los pasos de la guía: “AN4989 STM32 - Microcontroller Debug Toolbox”, => 7. Printf debugging 7.4.
+Semihosting 7.4.3. STM32CubeIDE”, configure el debugger para trabajar en modo semihosting con su primer STM32 Project
+con FreeRTOS.
+● Inserte en main.c la siguiente línea de programa:
+○ printf("Hello, World!");
+● Link de la guía: https://campusposgrado.fi.uba.ar/mod/url/view.php?id=14546
+● Compile/depure el programa, vea que por consola sale “Hello, World!” y cierre la sesión de depuración.*/
+
+
+  printf("Hello, World!\r\n");
+      /* add application, ... */
+	app_init();
 
   /* USER CODE END 2 */
 
@@ -284,7 +304,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   * @retval None
   */
 
-/* Practica A.1
+/* Praactica A.1
 Siguiendo los pasos de la guía “STM32CubeIDE Basic project on FreeRTOS”, genere su primer STM32 Project con
 FreeRTOS: para su placa NUCLEO-F4XXXYY.
 ● Link de la guía: https://campusposgrado.fi.uba.ar/mod/resource/view.php?id=10552
